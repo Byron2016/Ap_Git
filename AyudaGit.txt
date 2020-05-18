@@ -1,0 +1,41 @@
+- GIT
+	- ESTADOS
+		- WORKING DIRECTORY
+			- Donde programador trabaja con sus archivos
+				- git add
+					- Agrega los archivos al STAGING AREA
+		- STAGING AREA
+			- Donde programador agrega todos los archivos para el guardado
+				- git commit
+					- Agrega los cambios al REPOSITORY
+		- REPOSITORY
+			- Lugar final donde se guardarán los cambios YA ACEPTADOS.
+			
+	- COMANDOS BÁSICOS
+		- git init
+			- Inicializar un proyecto
+		- git add <file>
+			- Pasar archivos del "working directory" al "staging area"
+		- git status
+			- Indica el estado en que están los archivos
+		- git commit
+			- Pasar archivos del "staging area" al "repository"
+		- git push
+			- Para subir los archivos a un repositorio remoto
+		- git pull
+			- Para traer los cambios hechos por otras personas
+		- git clone
+			- Clonar un repositorio.
+			
+	- INSTALACIÓN
+		- Url: https://git-scm.com/
+			- git -version
+	
+	- USO
+		- git init
+		- git config --global user.email "xxx@yahoo.com"
+		- git config --global user.name "MiPersona"
+		- git add *
+		- git commit
+		
+		
