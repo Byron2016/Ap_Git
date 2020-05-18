@@ -1,0 +1,2 @@
+es un archivo nuevo creado durante estancia en 
+rama rama_01
