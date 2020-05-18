@@ -37,7 +37,7 @@
 		- git init
 		- git config --global user.email "xxx@yahoo.com"
 		- git config --global user.name "MiPersona"
-		- git add *
+		- git add .
 		- git commit
 			- Ingresar descripción del commit
 		- git log
