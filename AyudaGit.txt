@@ -37,5 +37,11 @@
 		- git config --global user.name "MiPersona"
 		- git add *
 		- git commit
+			- Ingresar descripción del commit
+		- git log
+		- git checkout -- NOMBREARCHIVO
+			- Regresa al archivo a su condición anterior.
+		- git diff NOMBREARCHIVO
+			- Para ver las diferencias con el último commit.
 		
 		
