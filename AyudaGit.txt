@@ -50,12 +50,21 @@
 		- git init
 		- git config --global user.email "xxx@yahoo.com"
 		- git config --global user.name "MiPersona"
+		- git config --global color.ui true
+		- git config --global --list
+			- Muestra las configuraciones.
+
 		- git add .
 		- git commit
 			- Ingresar descripción del commit
 		- git log
 		- git checkout -- NOMBREARCHIVO
 			- Regresa al archivo a su condición anterior.
+			- git checkout 3f69136d88e7ae29eb8987530cb84189177ebe49
+				- Nos permite ir a ese commit en particular.
+				- El valor sale de git log.
+		- git checkout master
+			- Me lleva al último commit de esa rama
 		- git diff NOMBREARCHIVO
 			- Para ver las diferencias con el último commit.
 		- git branch
@@ -67,6 +76,7 @@
 			- Me permite cambiar de una rama a otras
 		- git remote add origin https://github.com/Byron2016/Ap_Git.git
 		- git push -u origin master
+
 
 
 
