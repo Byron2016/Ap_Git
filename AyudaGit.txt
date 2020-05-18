@@ -1,4 +1,6 @@
 - GIT
+	- REFERENCIA
+		- https://www.youtube.com/watch?v=HiXLkL42tMU&list=PLL0TiOXBeDajHEJcPKNEieiwsJwguGBDT
 	- ESTADOS
 		- WORKING DIRECTORY
 			- Donde programador trabaja con sus archivos
