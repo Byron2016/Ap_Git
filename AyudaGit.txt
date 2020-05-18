@@ -20,6 +20,8 @@
 			- Indica el estado en que están los archivos
 		- git commit
 			- Pasar archivos del "staging area" al "repository"
+		- git commit -m "Mensaje"
+			- Evita que se abra el editor de código.
 		- git push
 			- Para subir los archivos a un repositorio remoto
 		- git pull
