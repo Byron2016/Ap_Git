@@ -52,6 +52,9 @@
 			- Crea una nueva rama para el proyecto.
 		- git checkout NombreRama
 			- Me permite cambiar de una rama a otras
+		- git remote add origin https://github.com/Byron2016/Ap_Git.git
+		- git push
+		
 		
 		
 		
