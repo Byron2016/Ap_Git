@@ -39,7 +39,7 @@
 		- git init
 		- git config --global user.email "xxx@yahoo.com"
 		- git config --global user.name "MiPersona"
-		- git add *
+		- git add .
 		- git commit
 			- Ingresar descripción del commit
 		- git log
@@ -47,5 +47,17 @@
 			- Regresa al archivo a su condición anterior.
 		- git diff NOMBREARCHIVO
 			- Para ver las diferencias con el último commit.
+		- git branch
+			- Me indica las ramas exitentes
+            - Me indica que la rama con "*" es en la que me encuentro.
+		- git branch NombreRama
+			- Crea una nueva rama para el proyecto.
+		- git checkout NombreRama
+			- Me permite cambiar de una rama a otras
+		- git remote add origin https://github.com/Byron2016/Ap_Git.git
+		- git push -u origin master
+		
+		
+		
 		
 		
