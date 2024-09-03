@@ -1,0 +1,1112 @@
+- GIT
+************************************************************************************************
+************************************************************************************************
+	- Archivo .github
+		- How to Use the .github Repository
+			- https://www.freecodecamp.org/news/how-to-use-the-dot-github-repository/#:~:text=in%20many%20repositories.-,The%20.,don't%20have%20an%20actual%20.
+	- Sobre ramas excelente artículo.
+		- https://nvie.com/posts/a-successful-git-branching-model/
+		
+	- Agregar alias (Ya no ocupar, mejor ir a .bashrc)
+		- IMPORTANTE: YA NO OCUPAR, MEJOR IR A .bashrc
+		- How to add an alias permanently for the Git Bash
+			- To add an alias permanently, you'd need to edit the file "/C/Program Files/Git/etc/profile.d/aliases.sh" "C:\Program Files\Git\etc\profile.d\aliases.sh"
+			- Run your text editor as an administrator and open that file.
+			- Add your alias and save the file.
+			- Open the Git Bash. Execute 'alias', and you're done. Have fun.
+			
+	- Quitar duplicados del history 
+		- clear && echo -e "--->BASH_HISTORY_ORIGINAL---\n\n\n\n\n" && cat /c/Users/bgva/.bash_history && cat /c/Users/bgva/.bash_history | sort -u > /c/Users/bgva/.bash_history && echo -e "\n\n\n\n\n--->BASH_HISTORY_NUEVO---\n\n\n\n\n" && cat /c/Users/bgva/.bash_history
+		- https://unix.stackexchange.com/questions/194780/remove-duplicate-lines-while-keeping-the-order-of-the-lines#answer-194790
+			- cat -n /c/Users/bgva/.bash_history | sort -k2 -k1n  | uniq -f1 | sort -nk1,1 | cut -f2- > /c/Users/bgva/.bash_history
+			
+			- How it works:
+
+				- On a GNU system, cat -n will prepend the line number to each line following some amount of spaces and followed by a <tab> character. cat pipes this input representation to sort.
+				
+				- sort's -k2 option instructs it only to consider the characters from the second field until the end of the line when sorting, and sort splits fields by default on white-space (or cat's inserted spaces and <tab>).
+				When followed by -k1n, sort considers the 2nd field first, and then secondly—in the case of identical -k2 fields—it considers the 1st field but as sorted numerically. So repeated lines will be sorted together but in the order they appeared.
+				
+				- The results are piped to uniq—which is told to ignore the first field (-f1 - and also as separated by whitespace)—and which results in a list of unique lines in the original file and is piped back to sort.
+				
+				- This time sort sorts on the first field (cat's inserted line number) numerically, getting the sort order back to what it was in the original file and pipes these results to cut.
+				
+				- Lastly, cut removes the line numbers that were inserted by cat. This is effected by cut printing only from the 2nd field through the end of the line (and cut's default delimiter is a <tab> character).
+
+			
+	- Trabajar con .bashrc 
+		- https://stackoverflow.com/questions/6883760/git-for-windows-bashrc-or-equivalent-configuration-files-for-git-bash-shell
+			- Crear archivo "~/.bashrc"
+				- Alternativas 
+					- copy > ~/.bashrc
+						- The window will output an error message (command not found), but the file will be created and ready for you to edit.
+					- touch ~/.bashrc
+					
+			- Crear archivo "~/.bash_profile"
+				- In newer versions of Git for Windows, Bash is started with --login which causes Bash to not read .bashrc directly. Instead it reads .bash_profile.
+				- If ~/.bash_profile file does not exist, create it with the following content:
+					- if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
+					
+			- Generar un archivo ".bashrc" con valores por defecto 
+				- cat /etc/bash.bashrc > ~/.bashrc
+				
+			- Agregar un alias a ".bashrc"
+				- alias ll="ls -la" # this changes the default ll on git bash to see hidden files.
+				cd "C:\directory\to\your\work\path\"
+				lr # this shows your your directory before you even type anything.
+				
+				- Refrescar lo último subido 
+					- exec bash
+			
+
+			
+		
+	- Doble dueño 
+		- WARNING: detected dubious ownership in repository
+			- Causa
+				- A change was introduced in git 2.35.2 (and newer) to prevent a user from executing git commands in a repository owned by a different user.
+				
+			- Workaround 
+				- git config --global --add safe.directory <path to the repository>
+				
+			- Mirar el SID del usuario actual 
+				- En PowerShell
+					- whoami /user
+					- whoami /all 
+					
+			- Mirar el dueño de una cuenta	
+				- Ir a la carpeta 
+				- Get-Acl
+					
+			- Mirar el SID de una carpeta 
+				- Ir a 
+				
+			- Tomar posesión carpeta
+			
+				- X comandos
+					- For Windows : One way to do this is with the takeown command:
+						- takeown /f <path to the repository> /r /d y
+					- For Linux: Using the chown command : 
+						- chown -R username:group <path to the repository>
+						
+				- X interfase 
+					- https://www.jasoft.org/Blog/post/como-gestionar-usuarios-en-windows-10-home
+					- Botón derecho sobre carpeta seleccionar "propiedades"
+					- Ir a "Seguridad / Opciones avanzadas"
+					- En propietario seleccionar "Cambiar"
+					- Agregar el nuevo propietario.
+					
+			- Mirar lo que está en git config 
+				- git config --list
+		
+	How to remove untracked files in git
+	https://www.educative.io/answers/how-to-remove-untracked-files-in-git
+	
+	- Listar los archivos a ser quitados de untracked
+		- git clean -n
+	- Listar los archivos y directorios a ser quitados de untracked
+		- git clean -nd
+	- Remover archivos  untracked
+		- git clean -f
+	- Remover folder  untracked
+		- git clean -fd
+		
+	- Otros:
+		- git clean -fx
+		
+	- Clonar rama remota, clonar todas las ramas / clone 
+		- https://www.techiedelight.com/es/clone-git-repository-with-all-branches/
+		
+			- git branch -a
+				- remotes/origin/07-realtime-firestore-environment-variables
+
+			- git checkout <nombre de la rama remota> 
+				- git checkout 07-realtime-firestore-environment-variables
+				
+		- https://7sabores.com/blog/descargar-un-branch-remoto-cuando-usamos-git
+			- git checkout -b nombre_del_branch origin/nombre_del_branch
+				- nombre del branch: es el nombre que localmente le pondremos a la rama 
+				- origin/nombre_del_branch: es la rama remota 
+					- git checkout -b es_001_mio_inheritance_prototype remotes/origin/es_001_inheritance_prototype
+
+
+	- Buscar un commit 
+		- Indicando el archivo 
+			- git log files/es/web/javascript/closures/index.md | grep "41" --color=always
+			- git log files/es/web/javascript/inheritance_and_the_prototype_chain/index.md | grep "41" --color=always
+			- git log -n 1 --pretty=format:%H -- files/es/web/javascript/inheritance_and_the_prototype_chain/index.md
+			
+			- git log  files/en-us/web/javascript/inheritance_and_the_prototype_chain/index.md
+			- git log  files/en-us/web/javascript/inheritance_and_the_prototype_chain/index.md
+			- git log -n 1 --pretty=format:%H -- files/en-us/web/javascript/inheritance_and_the_prototype_chain/index.md
+
+			
+		- Searching for a String in Git Commits
+			- https://www.baeldung.com/ops/git-commit-search-string
+				- git show #commit
+				- git log --grep Simplify  //“Simplify” in its commit message
+				- git log --grep Simpl\w*
+				- git log -i --grep simplified //Case-Insensitive Matching
+				- Expresiones regulares
+					- git log -E --grep (simplified|simplify) //To use extended regular expressions (ERE),
+					- git log -P --grep simplified(?=code) //we can also use Perl-compatible regular expressions (PCRE) 
+					- git log -F --grep simplif.* //to turn off the regular expression interpretation and make the search only consider fixed strings
+				- git log -p --grep json
+				- 
+				
+	- How To Fix Support For Password Authentication Was Removed On GitHub
+		- https://www.youtube.com/watch?v=ePCBuIQJAUc
+			- Ir a Github 
+				- Foto usuario, click derecho Settings / Developer Settings / Personal Access tokens / tokens (classic)
+				- Generate new Token / Generate new Token (classic)
+					- Darle nombre 
+					- Configuración 
+					- guardar 
+					- Copiarlo.
+			- Ir al Ubuntu 
+				- git remote set-url origin https://<token>@github.com/<usuario>/<repo>
+				- git remote set-url origin https://secret@github.com/Byron2016/borrarHoy
+				
+				git remote set-url origin https://secret/4/Byron2016/borrarHoy
+				git remote set-url origin https://secret@github.com/Byron2016/translated-content
+				git remote set-url origin https://Byron2016:secret/Byron2016/translated-content
+				
+				- git remote set-url origin https://<user>:<token>@github.com/<usuario>/<repo>
+				
+				secret/4
+		
+************************************************************************************************
+************************************************************************************************
+	Pide clave
+		- Crear token
+		- Antes ejecutar commit
+			- git config credential.helper store
+
+************************************************************************************************
+************************************************************************************************
+	GIT por makigas
+	https://www.youtube.com/watch?v=jSJ8xhKtfP4&list=PLTd5ehIj0goMCnj6V5NdzSIHBgrIXckGU
+	Nota:
+		GIT:    Es un sistema de control de versiones
+		GitHub: Es una plataforma en donde podemos guardar nuestros proyectos y usar GIT para administrar.
+************************************************************************************************
+************************************************************************************************
+	- REFERENCIA
+		- https://www.youtube.com/watch?v=jSJ8xhKtfP4&list=PLTd5ehIj0goMCnj6V5NdzSIHBgrIXckGU
+	- INSTALACION - MAKIGAS Tutorial de Git – 2. Cómo instalar Git en Windows, Linux y macOS
+		- Linux
+			- apt-get instal git
+		- Mac
+			- git
+		- Windows
+			- Bajar Git for windows.
+				- https://gitforwindows.org/
+			- O bajar GitHub Desktop (Pagada)
+				- https://desktop.github.com/
+		- Saber que shell tengo
+			- echo $SHELL
+				- Desplegará:
+					- /usr/bin/bash o /usr/bin/zsh
+					
+	- Tutorial de Git – 3. Creando tu primer commit
+		- Crear repositorio git
+			- Listar comandos disponibles: git
+			- git init 
+		- Ver estado
+			- git status
+		- Indicar he realizado cambios
+			- git add <nombre archivo> o git add . 
+				- Lo mete en el Stage, es decir en la lista de cambios
+				  que están preparados para ser enviados en el siguiente
+				  commit que hagamos.
+		- Enviar los cambios 
+			- "git commit"
+				- Primera vez pide:
+					- git config --global user.email "bgva2005@yahoo.com"
+					- git config --global user.name "Byron2016"
+					- COMMIT_EDITMSG
+				- Midudev, en los títulos NO se debe poner puntos.
+					- https://www.gitkraken.com/learn/git/best-practices/git-commit-message
+					
+		- commit vacío para una nueva rama.
+			- moverse a la nueva rama 
+			- git commit --allow-empty -m "xxxxx"
+	- Tutorial de Git – 4. ¿Qué es eso del working directory?
+		- Historico cambios
+			- git log
+		- Ver cambios realizados
+			- git diff
+				- Metidas verdes
+				- Quitadas Rojas
+		- ESTADOS
+			- STAGE O INDICE.
+			
+		- Ya hago commit y se me ha olvidado meter otro cambio. (agregar / añadir a commit)
+			- git add .
+			- git commit --amend  
+				- abre el editor para poner el mensaje
+					- si es VIM para salir: :wq
+					
+			- git commit --amend --no-edit 
+				- NO abre el editor.
+			
+	- Tutorial de Git – 5. ¿Cómo deshago una modificación?
+		- Volver atrás. Mientras NO este en Stage area.
+			- git checkout -- index.html
+			
+		- Volver atrás. Ya está en el Stage area.
+			- git reset HEAD index.html
+				- head se refiere al último commit 
+				  de la rama en la que estoy.
+			- git checkout -- index.html
+			
+		- Untraket files.
+			# Print out the list of files and directories which will be removed (dry run)
+			git clean -n -d
+			
+			# Delete the files from the repository
+			git clean -f
+			
+	- Tutorial de Git – 6. ¿Cómo deshago / deshacer un commit? borrar commit
+		- MUCHO CUIDADO RESET YA QUE ES COMANDO DESTRUCTIVO.
+		  SI ES UN REPOSITORIO COMPARTIDO, PUEDO DAÑAR
+		- Cambio está en Commit pero no hecho push.
+			
+			  
+			- Ver a q commit queremos volver.
+			- git log --oneline
+			- git log --oneline | cat
+			- gloga --color | cat
+			- git reset #####
+			- git checkout -- index.html
+			
+		- Cambio está en Commit pero no hecho push. COMO SI NADA HABRIA PASADO..
+			- git reset #### --hard
+				- #### es el commit al que queremos volver.
+				
+			- https://midu.dev/como-deshacer-el-ultimo-commit-git/
+				- Si mantener cambios
+					- git reset --soft HEAD~1
+					
+				- NO mantener cambios
+					- git hard --soft HEAD~1
+			
+		- Cambio está en Commit pero no hecho push. DEJENOS EN STAGE.
+			- git reset #### --soft
+			
+		- Cambiar mensaje último commit.
+			- git commit --amend -m "Este es el nuevo comentario"
+			
+		- Desacer cambios y BORRAR el remoto ya pusheado.
+			- git reset 80b36d9 --hard
+			- git push -f origin main
+			
+	- Tutorial de Git – 7. ¿Cómo revierto un commit?
+		- REVERT
+			- Descarta completamente los cambios hechos en un commit.
+			
+				- git diff #### ####
+				- git log --oneline --decorate
+				- Otra forma de hacer git diff ### ###
+					- git diff HEAD~1 HEAD
+				- git revert HEAD
+				
+			- ha hecho dos commits.
+				- Si hago dos revert van a quedar registrados en el log
+				  y no queremos eso.
+				- Le digo, revierteme los cambios pero no hagas commit
+				  déjalos en el stage x q voy a hacer más cosas.
+					- git revert --no-commit HEAD
+					- git revert --no-commit HEAD~1 
+					- git revert --continue
+					
+	- Tutorial de Git – 8. Introducción a las ramas (branches)
+		- git log --oneline --graph
+		- git log --oneline --graph --decorate
+		
+	- Tutorial de Git – 9. Cómo crear, modificar y eliminar branches
+		- Listar ramas: git branch 
+		- crear rama: feature branch: git branch feature-newstyle 
+			- git switch -c fix-accesibility-issues 
+		- mover a rama: git checkout feature-newstyle
+		- crear y cambiar: git checkout -b feature-newhomepage
+		- cambiar nombre: git branch -m feature-newhomepage feature-newhome
+		- borrar: git branch -d feature-newhome
+		- borrar a la fuerza: con -D
+		- más verboso: -v
+		
+		- eliminar rama REMOTA
+			- git push origin --delete <NOMBRE RAMA>
+		
+	- Tutorial de Git – 10. Commits bajo el workflow Feature Branch
+		- 
+		- Ver todos los commits: 
+			- git branch master
+			- git log --oneline --graph --decorate --all 
+		- Integrar cambios a master.
+			- 
+			
+	- Tutorial de Git – 11. ¿Cómo hacer un merge?
+		- merge
+			- ir a la rama de destino 
+			- git merge fix-fecha
+			
+			Fast Forward
+				- hacer mezcla entre rama una sin mod y otra con mod.
+				  mueve el HEAD de la destino a la altura de la que 
+				  tiene modificación
+				  
+			- buscar ancestro común de las dos q quieren fusionar.
+			  este es el commit de referencia en el cual se miden
+			  los cambios.
+			  
+				- estrategis de fusión, la de default es la recursiva.
+				crear un tercer commit en el que se integren los
+				cambios. comprobando lineas quitadass  y puestas 
+				en cada rama.
+				si esto lo puede hacer automáticamente todo ok, caso 
+				contrario pide ayuda al usuario.
+				
+				- git merge feature-newstyle.
+			
+			
+	- Tutorial de Git – 12. ¿Cómo resolver un conflicto en el merge?
+		- https://www.youtube.com/watch?v=3-rCELg8feQ&list=PLTd5ehIj0goMCnj6V5NdzSIHBgrIXckGU&index=12&pp=iAQB
+		- Resolución de conflictos.
+		
+			- Cambios en el mismo archivo.
+			
+			- Resolver el conflicto
+			- hacer gaa
+			- hacer commit.
+			
+			- Ojo:
+				- si se hace gst sale both modified.
+				- En el conflicto se señala las ramas 
+				- Eliminar las líneas extrañas, quedarnos con la mejor versión.
+	
+	- Tutorial de Git –13. Cómo construir alias
+		- glog:  git log --oneline --graph --decorate
+		- gloga: git log --oneline --graph --decorate --all
+		
+		- Se guardan en configuración de git.
+			- se debe usar git config
+				- git config --global alias.lodagt 'log --oneline --graph --decorate --all'
+				- Ejecutar: git lodagt
+				
+				
+				
+			
+			
+		- ver alias existentes:
+			- git config --global --get-regexp alias
+		
+		- eliminar alias:
+			- git config --global --unset alias.lodagt
+			
+	- Tutorial de Git – 14. ¿Cómo resolver conflictos en Git?
+		- Conflictos no son malos y es normal q ocurran.
+		- Desacer el merge
+			- git merge --abort
+			
+	- Tutorial de Git – 15. ¿Cómo usar los tags? (https://www.youtube.com/watch?v=5DkX3HFgklM&list=PLTd5ehIj0goMCnj6V5NdzSIHBgrIXckGU&index=15)
+		- ligeros
+		- Son utilidades para acceder a posiciones.
+		- git tag v0.2.0  
+		- git tag v0.1.1 ####
+		- git checkout v0.1.1
+		
+		- tags tipo objetos.
+		
+		- listar los tags:
+			- git tag
+			
+		- eliminar tag
+			- git tag -d v0.1.1
+			
+		- ayuda
+			- git tag -h
+			
+	- Tutorial de Git – 16. ¿Qué son los tags anotados? (https://www.youtube.com/watch?v=h145ORRg7Ao&list=PLTd5ehIj0goMCnj6V5NdzSIHBgrIXckGU&index=16)
+		- Anotados
+		- .git
+			- cd .git
+			- cd refs (es la que tiene punteros)
+				- En directorio heads están las ramas.
+				- En directorio tag están los tags.
+				- cat heads/master
+		- en estos tag anotados, no solo hay puntero sino 
+		  también INFORMACIÓN.
+		  
+		- git tag -l          (lista todos los tags)
+		- git tag -l "v0.1.*" (para filtrar)
+		- git tag -l "v0.*.0"
+		- git tag -d V1.0.0   (borrar tag)
+		- git tag -d V0.0.0
+		- Para crear
+			- git tag -a v0.1.0
+			- Ingresar mensaje del tag
+		- git show V1.0.0
+		
+	- Tutorial de Git – 17. Stash: ¿cómo esconder cambios en Git?
+		- Esconder cambios.
+			- Hago un cambio
+			- hago un git add cambio.
+			- necesito cambiarme de rama, pero tengo cosas en stage.
+			- git stash
+				- guardamos pero no son visibles.
+				- git status  ahora está limpio.
+				- git stash list
+			- Me cambio de rama, hago los cambios.
+			- Regreso a la rama q tenía el stage.
+			- git stash apply.
+				- Se colocan como una pila y se aplican de arriba abajo.
+			- git stash drop
+			
+			- Hago cambio.
+				- git stash save "cccc"
+				- git stash show stash@\{0\}
+				
+			- git stash pop
+			
+	- Tutorial de Git – 18. Introducción a remotos
+		- teoría.
+		
+		- Es un sistema de control de versiones DISTRIBUIDO.
+			- No existe noción de cliente servidor.
+			- Los ordenadores son NODOS.
+			- git remote: nos permite conectar ordenadores a los cuales 
+			  enviar o recibir información.
+			- El servidor sería el NODO SAGRADO.
+			- Este mantiene una copia segura de todo.
+			- 
+			
+	- Tutorial de Git – 19. Cómo hacer push
+		echo "# paraPruebasGit" >> README.md
+		git init
+		git add README.md
+		git commit -m "first commit"
+		git branch -M main
+		git remote add origin https://github.com/Byron2016/paraPruebasGit.git
+			- origin es el nombre del repositorio que quiero construir. Le puedo poner el nombre que yo quiera ya que origin es contra intuitivo.
+			
+			- Nota: nos ponemos traer tantos repositorios remotos como querramos, x ejemplo si el original al cual hicimos Fork tienen más contribuyentes podemos traernos sus ramas:
+				- git remote add [NOMBRE QUE LE DAREMOS AL REPOSITORIO EJEM: PEPITO] [la dir a clonarse.]
+				
+				- gir remote --verbose.
+			
+			
+		git push -u origin main
+			- nombre del remoto nombre rama que queremos subir.
+			- Ojo el -u lo que hace es memorizar la parte origin main, de tal forma que luego solo debo hacer git push.
+		
+		
+		- git remote
+			- muestra repositorio creado.
+		- git remote -v
+			- muestra más información.
+		- git push -u origin --all
+			- subir todas las ramas de golpe.
+			
+				- Remote: Support for password authentication was removed
+				  on August.... Please use a personal access token instead.
+					- https://stackoverflow.com/questions/68775869/support-for-password-authentication-was-removed-please-use-a-personal-access-to
+				  
+	- Tutorial de Git – 20. Cómo clonar y hacer pull
+		- Clonar git clone https.......
+			- tengo repositorio integro y completo en local.
+			
+		- Clonar pero sin todos los commits. 
+			- git clone https... --depth=1 (aprendido en midulive Git desde cero)
+			
+		- Mirar si hay commits nuevos.
+			- git pull origin master
+				- nombre remoto y rama.
+				- Crea esta etiqueta:
+					- * 3d77811 (HEAD -> master, origin/master) Create README.md
+					- git branch --all  (aparecen nuevas ramas)
+						* master
+						rama-A
+						rama-B
+						remotes/origin/master
+						remotes/origin/rama-A
+						remotes/origin/rama-B
+						
+					- Explicación
+						- remotes: es serie de ramas que tienen que ver con el remoto.
+						- origen: nombre de remoto al que estamos conectados.
+						- master: nombre de la rama en el remoto.
+						- HEAD: hay un head en el remoto, x defaul es master 
+						
+						
+		- CLONAR TODAS LAS RAMAS.
+			- Repositorio GIT bare vs non-bare
+				- http://www.danielnavarroymas.com/repositorio-git-bare-vs-non-bare/
+					- repositorio BARED: 
+					
+			- Clone All Branches in Git
+				- https://www.delftstack.com/howto/git/git-clone-all-branches/
+				
+					- mkdir test
+					  cd test
+					  git clone --mirror git://gitwebsite.com/user/test.git .git
+					  
+					- This command sets up the repository as a bare repository. To turn it back into a regular repository, change the bare Boolean value of git config to false.
+						- git config --bool core.bare false
+						
+					- Set HEAD with the git reset command. It gets everything from the current folder and creates all the branches on the local machine.
+						- git reset --hard
+						
+					- git branch
+						
+	- Tutorial de Git – 21. Fetch y pull rebase
+		- Ramas en el remoto, y que pasa si dos personas hacen push a la vez.
+		- Alternativa a git pull.
+			- git pull es una combinación a dos otros comandos.
+				- Preguntar a remoto tiene novedades y descargarlas: git fech.
+					-1.-  git fetch origen.
+					
+					- hago cambio en remoto.
+						- git checkout origin/master
+							- veo en local lo que allá está.
+					
+					
+					
+					- 2.- git checkout master
+					    - git merge origin/master
+						
+					- Los dos pasos anteriores es lo mismo que hacer
+						- git pull origin master
+						
+						
+		- Fusion recursiva.
+			- 
+			
+	- Tutorial de Git – 22. ¿Cómo hacer un rebase?
+		- Revese en nuestro repositorio.
+		
+		- git log --oneline --graph --decorate --all --since=2021-11-14  (Min 3.33)
+			
+		
+	- Tutorial de Git – 23. Rebase interactivo: reescribir el historial
+		Para que no pienses que eres muy bestia Minuto 1:00 (animal)
+		- https://www.youtube.com/watch?v=0_QwiNnj_dA&list=PLTd5ehIj0goMCnj6V5NdzSIHBgrIXckGU&index=23
+		
+		- Modificar últimos 4 commits (También permite cambiar nombre con "reword")
+			- El -i LE HACE ITERATIVO.
+			- NO HACER CON CÓDIGO PUSHEADO.
+			- git rebase -i HEAD~1   (Al poner 1 al final hará cambio sobre el último, si quiero trabajar sobre más, podré poner el número que necesite)
+				- El -i LE HACE ITERATIVO.
+				- NO HACER CON CÓDIGO PUSHEADO.
+				- pick: dejar commit tal y como está.
+				- reword: modificar commit
+				- squash: aplastarlo
+				- fixup: quitar commits log message
+				- exec: ejecutar comando.
+				
+				- Se trabaja con VIM 
+					- entar modo insert: i
+					- Pongo en la línea la r para reword 
+					- guardar:  :wq 
+					- Saca nueva pantalla para modificar el texto 
+					- i para entrar modo insert 
+					- modificar el texto del commit 
+					- guardar y salir: :wq 
+					
+				- Ejemplo aplastarl	
+					- git rebase -i HEAD~4
+						- pick  <-- en este incrustaré
+						- squash
+						- squash
+						- squash 
+					- :wq 
+					
+				- Anular
+					- git rebase --abort
+				
+				
+			- git log --merge
+			- git merge --abort
+				- https://www.simplilearn.com/tutorials/git-tutorial/merge-conflicts-in-git
+				
+			- Merge a un solo commit
+				- git merge --squash <feature branch>
+			
+
+
+************************************************************************************************
+************************************************************************************************
+	GIT
+	https://www.youtube.com/watch?v=HiXLkL42tMU&list=PLL0TiOXBeDajHEJcPKNEieiwsJwguGBDT
+	Nota:
+		GIT:    Es un sistema de control de versiones
+		GitHub: Es una plataforma en donde podemos guardar nuestros proyectos y usar GIT para administrar.
+************************************************************************************************
+************************************************************************************************
+
+	- REFERENCIA
+		- https://www.youtube.com/watch?v=HiXLkL42tMU&list=PLL0TiOXBeDajHEJcPKNEieiwsJwguGBDT
+	- ESTADOS
+		- WORKING DIRECTORY
+			- Donde programador trabaja con sus archivos
+				- git add
+					- Agrega los archivos al STAGING AREA
+		- STAGING AREA
+			- Donde programador agrega todos los archivos para el guardado
+				- git commit
+					- Agrega los cambios al REPOSITORY
+		- REPOSITORY
+			- Lugar final donde se guardarán los cambios YA ACEPTADOS.
+
+	- COMANDOS BÁSICOS
+		- git init
+			- Inicializar un proyecto
+		- git add <file>
+			- Pasar archivos del "working directory" al "staging area"
+		- git status
+			- Indica el estado en que están los archivos
+		- git commit
+			- Pasar archivos del "staging area" al "repository"
+		- git commit -m "Mensaje"
+			- Evita que se abra el editor de código.
+		- git push
+			- Para subir los archivos a un repositorio remoto
+		- git pull
+			- Para traer los cambios hechos por otras personas
+		- git clone
+			- Clonar un repositorio.
+
+	- INSTALACIÓN
+		- Url: https://git-scm.com/
+			- git -version
+
+	- USO
+		- git init
+		- git config --global user.email "xxx@yahoo.com"
+		- git config --global user.name "MiPersona"
+		- git config --global color.ui true
+		- git config --global --list
+			- Muestra las configuraciones.
+
+		- git add .
+		- git commit
+			- Ingresar descripción del commit
+		- git log
+		- git checkout -- NOMBREARCHIVO
+			- Regresa al archivo a su condición anterior. (Ir a un commit especifico)
+			- git checkout 3f69136d88e7ae29eb8987530cb84189177ebe49
+				- Nos permite ir a ese commit en particular.
+				- El valor sale de git log.
+		- git checkout master
+			- Me lleva al último commit de esa rama
+		- git diff NOMBREARCHIVO
+			- Para ver las diferencias con el último commit.
+		- git branch
+			- Me indica las ramas exitentes
+            - Me indica que la rama con "*" es en la que me encuentro.
+		- git branch NombreRama
+			- Crea una nueva rama para el proyecto.
+		- git checkout NombreRama
+			- Me permite cambiar de una rama a otras
+		- git remote add origin https://github.com/Byron2016/Ap_Git.git
+		- git push -u origin master
+
+
+
+
+		************************************************************************************************
+		************************************************************************************************
+			GIT CODIGO FACILITO
+			https://www.youtube.com/watch?v=zH3I1DZNovk&list=PL9xYXqvLX2kMUrXTvDY6GI2hgacfy0rId&index=1
+			Nota:
+				GIT:    Es un sistema de control de versiones
+				GitHub: Es una plataforma en donde podemos guardar nuestros proyectos y usar GIT para administrar.
+		************************************************************************************************
+		************************************************************************************************
+		1.- Instalar GIT "https://git-scm.com/"
+			1.1.- Windows: Instalar git bash
+		1.- Configuración "https://www.youtube.com/watch?v=XXdaqtLgOGI&list=PL9xYXqvLX2kMUrXTvDY6GI2hgacfy0rId&index=2"
+			1.1.- Crear usuario: git config --global user.name "byron"
+			1.2.- Verificar usuario: git config --global user.name
+			1.3.- Cambiar nombre: git config --global user.name "Nuevo nombre"
+			1.4.- Configurar correo: git config --global user.email "bgva2005@yahoo.com"
+			1.5.- Verificar correo: git config --global user.email
+			1.6.- Para configurar colores: git config --global color.ui true
+			1.7.- Listado de nuestras configuraciones: git config --global --list
+			1.8.- Eliminar algo: "git config --unset --local user.name" -- "git config --unset --global user.name"
+			1.9.- Problemas de subida: Abrir Git GUI/Edit/Opciones y agregar correo
+		2.- Crear Proyecto "usando el git bash"
+			2.1.- Usando el git bash ir a carpeta de proyecto "cd /c/dev/Homestead/proyectos/plantilla2_MVC" y poner comando "git init" para marcar inicio de proyecto (empieza a monitorear)
+			2.2.- En GitHub crear un nuevo proyecto: "https://github.com/Byron2016/Plantilla2_MVC"
+			2.3.- En GitHub copiar la ruta http: "https://github.com/Byron2016/Plantilla2_MVC.git"
+			2.4.- En git bash ejecutar comando: "git remote add origin RutaCopiada"
+			2.5.- verificar : "git remote -v"
+			2.6.- para saber status de nuestro proyecto: "git status"
+			2.3.- Para agregar archivos
+				2.3.1.- colocar comando "git add index.html"
+				2.3.2.- Para agregar TODO: "git add -A"
+				2.3.3.- Guardar con mensaje para identificarlos: git commit -m "Mensaje"
+				2.3.4.- PASOS: 1.- git add -A 2.- git commit -m "Mensaje"
+				2.3.4.- Subir: "git push origin master" -- master es la rama
+				2.3.5.- Listados de commits: git log
+				2.3.6.- Para viajar en el timepo
+					2.3.6.1.- Poner "git log"
+					2.3.6.2.- Copiar código SHA al que queremos ir
+					2.3.6.3.- Poner "git checkout CODIGO_SHA"
+					2.3.6.4.- Ir a última versión: "git checkout master"
+				2.3.7.- Para quitar errores o commits: "git reset"
+					2.3.7.1.- Sin tocar código: "git reset --soft"
+						2.3.7.1.1.- Ejemplo: git reset --soft CODIGO_SHA
+					2.3.7.2.- Sin tocar stagin/working area: "git reset --mixed
+					2.3.7.3.- Borrar TODO: "git reset --hard"
+						2.3.7.3.1.- Ejemplo: git reset --hard CODIGO_SHA  (Nos retorna al sha q pongamos, borrando TODO el código)
+				2.3.8.- Para AYUDA: "git help" "git help status"
+				2.3.9.- Renombrar un commit
+					2.3.9.1.- Renombrar: "git commit -amend -m "TextoNuevo"
+					2.3.9.2.- Subir a GitHub: "git push origin master -f"
+				2.3.10.- SALIR: q
+
+		3.- Ramas y Fusiones
+			3.1.- Concepto Head: Commit donde nos encontramos ahora.
+			3.2.- Ramas: Línea de tiempo en nuetro proyecto, que nos sierve para arreglar errores, experimentar, hacer grandes cambios, etc
+				3.2.1.- Rama Master: Se genera por defout al hacere "git init"
+				3.2.2.- Visualizar ramas: "git branch" la que despliega coloreada es en la que estamos
+				3.2.3.- Crear rama: "git branch nombreNuevaRama"
+				3.2.4.- Moverse a otra rama: "git checkout nombreNuevaRama" (todo cambio se hará en esta rama)
+				3.2.5.- BORRAR ramas: "git branch -D nombreNuevaRama"
+				3.2.6.- Mostrar ramas ocultas: "git branch -a"
+			3.3.- Fusiones: Pasar cambios de un branch a otro
+				3.3.1.- Ir a rama destino: "git checkout nombreRamaDestino"
+				3.3.2.- Ir a rama destino: "git merge nombreRamaASerAbsorvida"
+				3.3.3.- Tipos de fusiones: Fast-Forward y Manual Merge
+					3.3.3.1.- Fast-Forward: Sólo hace fución y no pregunta nada.
+					3.3.3.2.- Manual Merge: Pasa por nosotros y nos pide hacer alguna actividad.
+			3.4.- Crear y Moverse a una rama : "git checkout -b nombreNuevaRama"
+
+		4.- GitHub
+			4.0.- Iniciar
+				4.0.1.-  cd /c/dev/Homestead
+				4.0.1.-  vagrant up
+				4.0.1.-  cd /c/dev/Homestead/proyectos/plantilla_MVC
+				4.0.1.-  git remote -v
+				4.0.1.-  git commit -m "Inicio video 16 16 PHP:POO+MVC - Crear un framework básico(Listas de Acceso(ACL) parte 2/3)"
+				4.0.1.-  git push origin master
+				4.0.1.-  git add -A
+				4.0.1.-  git tag -a vx.0 -m "Fin Video x"
+				4.0.1.-  git push origin vx.0
+				4.0.1.-
+
+			4.1.- Crear en GitHub cuenta (https://github.com/login: Byron2016/NomBarr2016)
+			4.2.- Clonar un proyecto: "git clone" (Toma proyecto de gitHub y lo pasa a nuestra computadora)
+				4.2.1.- Dar copiar en GigHub
+				4.2.2.- en Git: "git clone COPIADO"
+			4.3.- Subir proyecto a GitHub
+				4.3.1.- Repositorios Remotos: los que están en GitHub / Repositorio Local: En nuestra computadora
+				4.3.2.- Crear Repositorio en GitHub
+					4.3.2.1.- Puede ser cualquier nombre no necesariamente el del repositorio locales
+				4.3.3.- Vincular Repositorios: "git "
+						4.3.1.- Copiar ruta
+						4.3.2.- En Git poner: "git remote add origin RutaCopiada"
+						4.3.3.- verificar : "git remote -v"
+						4.3.4.- Desconectar repositorio: "git remote remove origin"
+							4.3.4.1.- Conectarce: "git remote add origin RutaCopiada"
+						4.3.5.- Pasar de Git a GitHub: "git push origin master"  -- (master es la rama a subir)
+						4.3.6.- PASOS
+							2.3.6.1.- Para agregar TODO: "git add -A"
+							2.3.6.2.- Guardar con mensaje para identificarlos: git commit -m "Mensaje"
+							2.3.6.3.- Subir: "git push origin master" -- master es la rama
+			4.4.- Utilidades
+				4.4.1.- Issues: Cosas a mejorar en nuestros proyectos
+				4.4.2.- Milestones: Grupo de issues para un período de tiempo
+				4.4.3.- Labes: Manera de organizar diferentes tipos de problemas.
+				4.4.4.- Assignees: Asignar a alguien
+				4.4.5.- Tags: Puntos específicos en historia de proyectos (Versionamientos) (a commit se le dice qué versión es)
+					4.4.5.1.- Crear tags ultimo commit: "git tag -a v1.0 -m "Mensaje""
+					4.4.5.2.- Crear tags a otro commit: "git tag -a v1.0 -m "Mensaje" Codigo_SHA"
+					4.4.5.3.- Subir tags a GitHub: git push origin v1.0
+					4.4.5.4.- Subida masiva: "git push origin --tags"
+				4.4.6.- Workflows (TRABAJO COLABORATIVO):
+					4.4.6.1.- Proyectos propios: Lo ya visto
+					4.4.6.2.- Proyectos en EQUIPO:
+						4.4.6.2.1.- Crear una nueva organización (Quien recive avisos, y agregar personas)
+						4.4.6.2.2.- Transferir repositorio a la organización
+						4.4.6.2.3.- Cargar cambios de equipo a nuestro local:
+							4.4.6.2.3.1.- Bajar cambios en repositorio remoto a origin/master: "git fetch origin"
+							4.4.6.2.3.1.- Copiar al master local:
+								1.- Desconectarse si no se está en repositorio adecuado
+									1.1.- verificar repositorio q está conectado: "git remote -v"
+									1.2.- desconectarse del repositorio: "git remote remove origin"
+									1.3.- verificar ya no está conectado: "git remote -v"
+									1.4.- conectarse a repositorio compartido: "git remote add origin LINK_COMPARTIDO"
+									1.5.- Verificar repositorio q está conectado: "git remote -v"
+								2.- Cambiarse a la rama destino: "git checkout master"
+								3.- Copiar a rama destino lo que está en rama origin/master: "git fetch origin"
+								4.- Pasar cambios de rama oculta a rama destino: "git merge origin/master"
+								5.- Verificar cambios: "git log"
+								6.- Guardar cambios q se tengan locales: "git add -A"
+								7.- Crear commit: "git commit -m "mensaje""
+								8.- Subir commits que se tenga locales: "git push origin master"
+								9.- En caso de haber conflictos son marcados con "<<<<<<<<" y hay que hacer cambio MANUAL
+									9.1.- <<<<<<<<< HEAD marca donde está nuestro cambio
+									9.2.- >>>>>>>>> origin/master lo que está en la rama oculta
+									9.3.- borrar el cambio q no queremos y las etiquetas de 9.1 y 9.2
+									9.4.- Verificar lo cambiado: "git status"
+									9.5.- Guardar cambios q se tengan locales: "git add -A"
+									9.6.- Crear commit: "git commit -m "se arreglan conflictos queda el cambio segundo""
+									9.7.- Subir a gitHub: "git push  master"
+					4.4.6.3.- Proyectos con TERCEROS: (video 7 min 25)
+						4.4.6.3.1.- Ir al repositorio y presionar FORK
+						4.4.6.3.2.- Verificar ramas ocultas
+							4.4.6.3.2.1.- origin/master (si tenemos colaborativo local)
+							4.4.6.3.2.2.- upstream/master (al original)  (ojo: upstream puede cambiar, hay que verificar en la organización)
+						4.4.6.3.3.- Se hace Add y el commit de los cambios realizados
+						4.4.6.3.4.- Se suben los cambios con push (Esto sube al repositorio del perfil ya que se hizo FORK)
+						4.4.6.3.5.- Comunicar estos cambios a la organización: Presionar botón "New pull request" -- "create pull request"
+
+
+
+
+			4.5.- Pages: Generación de sitios web a partir de nuestros proyectos
+				4.5.1.- Crear sitio web para nuestro usuario u organización
+					4.5.1.1.- Crear un repositorio con nombre: usuario.github.io
+					4.5.1.2.- Clonar repositiro para pasarlo localmente: "get clone url"
+					4.5.1.3.- Subir cambios con "git push"
+					4.5.1.4.- Validar cambios llamando al domineo: usuario.github.io
+				4.5.2.- Sitios web para nuestros proyectos
+					4.5.2.1.- Crear repositorio
+					4.5.2.2.- Clonarlo localmente
+					4.5.2.3.- Crear rama nueva: "git branch gh-pages"
+					4.5.2.4.- Subir los cambios a esta rama nueva: "git push origin gh-pages"
+					4.5.2.5.- Visualizar página: ir  "usuarios/repositorio"
+			4.6.- Deploymet con git: Commits de repositorio local va a gitHub y al servidor
+				4.6.1.- Llave SSH: sirve para conectarse a servidores sin necesidad poner cotraseña cada rato.
+					4.6.1.1.- Generación poner: "ssh-keygen"
+					4.6.1.2.- La id_rsa NADIE la debe ver es la llave privada.
+					4.6.1.3.- La id_rsa.pub la subimos a GIT a través de opcion "SSH Keys"
+					4.6.1.4.- Mandar cambios sin usar claves
+						4.6.1.4.1.- Conectarse a repositorio con ssh: "git remote add origin URL-SSH"
+						4.6.1.4.2.- Evitar archivos basura:
+							1.- touch .gitignore
+							2.- Enumerar archivos que no queremos.
+								# Compiled source #
+								###################
+								*.com
+								*.class
+								*.dll
+								*.exe
+								*.o
+								*.so
+								*.sh
+
+								# Packages #
+								############
+								*.7z
+								*.dmg
+								*.gz
+								*.iso
+								*.jar
+								*.rar
+								*.tar
+								*.zip
+
+								# Logs and databases #
+								######################
+								*.log
+								*.sql
+								*.sqlite
+
+								# OS generated files #
+								######################
+								.DS_Store
+								.DS_Store?
+								._*
+								.Spotlight-V100
+								.Trashes
+								ehthumbs.db
+								Thumbs.db
+
+						4.6.1.4.3.- Hacer el Add y el Commit
+						4.6.1.4.4.- Subir: "git push origin Rama"
+						4.6.1.4.5.- Poner llave pública en SERVIDOR
+							4.6.1.4.5.1.- Debe estar hospedad en un servidor que acepte SSH (clouddigitalocean si lo tiene)
+							4.6.1.4.5.2.- Subir el SSH en el servidor
+							4.6.1.4.5.3.- Conectarse: "ssh root@Domineo.com" (si no se tiene domineo, se usa la IP)
+							4.6.1.4.5.4.- Con la clave anterior ESTOY EN EL SERV REMOTO, IR A CARPETA CONTENEDORA
+							4.6.1.4.5.5.- Crear llave en el servidor y copiar la publica a github
+							4.6.1.4.5.6.- ir a GitHub/configuraciones/sshkeys y agregarla
+							4.6.1.4.5.7.- Escribir: "git pull origen RamaDestino"  (pull: fetch + merge  (solo usar si ya se sabe fetch y merge)
+							4.6.1.4.5.8.- Git también debe ser instalado en el SERVIDOR
+			4.7.- git Hooks: Mecanismos para activar scripts de acuerdo a cierta acción. (Existen 17)
+				4.7.1.-
+		5.- Visual Studio + Git (https://www.youtube.com/watch?v=egy2r6ReaeI)
+			5.1.- Cuando se crea proyecto activar check "add to source control"
+			5.2.- Seleccionar el source control "git"
+			5.3.- En changes se puede poner los commits
+			
+	- Alias en GitBash / git Bash
+		- https://stackoverflow.com/questions/37104273/how-to-set-aliases-in-the-git-bash-for-windows
+			- C:\Program Files\Git\etc\profile.d\aliases.sh
+			
+			- Listado
+				- https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
+				- https://gist.github.com/virajkulkarni14/a719d23faec4015068e363f75797dbd7
+				
+			- Mis Alias
+				alias glogac='git log --oneline --decorate --graph --all --color | cat'
+				alias glogacc='git log --oneline --decorate --graph --color | cat'
+				# PROPIOS BYRON INICIO
+				alias as='alias | grep --color $1'
+				alias hs='history | grep --color $1'
+				alias findd="ls ~/ | grep $1"
+				alias cl="clear"
+				alias cafe="cat /dev/urandom | hexdump | grep \"ca fe\""
+				alias mostused='history | awk '\''{print $2} '\'' | sort | uniq -c | sort -nr | head -n 10'
+				alias gslogs="git status && git log --oneline --graph --decorate --all --since=1day"
+				alias gslog="git status && git log --oneline --graph --decorate --all"
+				# PROPIOS BYRON FIN
+				
+				
+				
+			-
+				gst
+				gaa
+				gcmsg "xxxx"
+				git remote add origin https://github.com/Byron2016/044_WPF_CambioVentanas.git
+				git push -u origin main
+				
+				
+	- zsh
+		- https://es.linux-console.net/?p=24
+		- https://conpilar.es/como-instalar-zsh-en-linux/
+		- https://www.youtube.com/watch?v=5qNDJu1ek-A
+			- https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
+			- https://github.com/ohmyzsh/ohmyzsh
+				- Themas: https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+					- Powerline Fonts: https://github.com/powerline/fonts
+						- Meslo Dotted
+			- https://github.com/romkatv/powerlevel10k
+			
+		- WINDOWS
+			- Lleva tu terminal al siguiente nivel con Zsh y Oh My Zsh
+				- https://www.youtube.com/watch?v=35EN3iP1-8c
+				
+	- WLS
+		- ERROR: WslRegisterDistribution failed with error: 0x80070422
+			- https://www.thewindowsclub.com/wslregisterdistribution-failed-with-error-0x80070422#:~:text=This%20error%20is%20known%20to,enabled%20devices%20associated%20with%20it.
+				- En powerShell como administrador ejecutar:
+					- sc config LxssManager start=auto
+						- Esto activará el servicio LxssManager
+				
+			
+	- gitignore.io
+		- Ver alias creados:
+			- git config --global --get-regexp alias
+			
+		- Eliminar un alias:
+			- git config --global --unset alias.ignore
+				- .ignore es EL NOMBRE DEL ALIAS A ELIMINAR.
+				
+		- Crear el alias
+			- git config --global alias.ignore $'!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi'
+			
+			- git ignore linux,macOs,node,react,visualstudiocode,windows,visualstudio > .gitignore
+			
+			
+	- .gitattributes 
+		- https://uniwebsidad.com/libros/pro-git/capitulo-7/atributos-de-git
+		
+		
+	- Configurar hyper.is
+		- https://myrlandnu.medium.com/guide-to-install-and-configure-hyper-for-windows-10-52a829c97b25
+		
+		- Instalar zsh en windows.
+			- https://medium.com/fixtergeek/instalar-oh-my-zsh-en-windows-93e554938fd2
+			
+		- Troubleshooting “E: Unable to locate package” Error on Ubuntu [Beginner’s Tutorial]
+			- https://itsfoss.com/unable-to-locate-package-error-ubuntu/
+			- Buscar paquetes
+				- https://packages.ubuntu.com/
+				
+		- Hyper.js + Oh My ZSH as Ubuntu on Windows (WSL) Terminal
+			- https://ssharizal.medium.com/hyper-js-oh-my-zsh-as-ubuntu-on-windows-wsl-terminal-8bf577cdbd97
+			
+			- C:\Users\bgva\AppData\Roaming\Hyper
+			
+			- ERROR: WslRegisterDistribution failed with error: 0x80070422
+			         Error: 0x80070422 No se puede iniciar el servicio, porque estß deshabilitado o 
+					 porque no tiene dispositivos habilitados asociados a Úl.
+			
+		- sudo bash command not found
+			- 
+
+	- Git no funcionan las teclas
+		- https://stackoverflow.com/questions/32597209/python-not-working-in-the-command-line-of-git-bash/32599341#32599341
+		- En instalación agregar Enable experimental support for pseudo consoles.
+		
+	- Agregar Git botón derecho mouse
+		- How to launch Git Bash from right-click context menu on Windows 10 | One - Tips Everyday
+			- https://www.youtube.com/watch?v=kIgZEdyn1dA
+			
+			- WindowKey + R
+			- regedit
+			- Ir a Equipo\HKEY_CLASSES_ROOT\Directory\Background\shell
+			- Agregar Key con nombre Bash
+			- Agregar dentro de la anterior Key con nombre command
+			- Path al git.  C:\Program Files\Git\git-bash.exe
+			
+	- To get all commits historically since a given hash, I have found something like this to be the only correct solution (Bash):
+		- Obtener commits historicamente desde un commit en particular.
+		- https://stackoverflow.com/questions/7693249/how-to-list-commits-since-certain-commit
+		
+		 - git log --author-date-order --all --reverse --after="$(git show -s --format='%at' COMMIT_HASH)"
+		 - git log --author-date-order --oneline --graph --decorate --all  --after="$(git show -s --format='%at' COMMIT_HASH)"
+		 
+	- How to merge two repositories on git?
+		- https://blog.devgenius.io/how-to-merge-two-repositories-on-git-b0ed5e3b4448
+			- git clone <https/ssh-link-for-repo1>
+			- git remote add <your-custom-remote-name> <https/ssh-for-repo2>
+			- git remote -v to check the remotes you have
+				origin <repo-1-link> (fetch)
+				origin <repo-1-link> (push)
+				your-custom-remote-name <repo-2-link> (fetch)
+				your-custom-remote-name <repo-2-link> (push)
+			- git fetch <your-custom-remote-name>
+			- git checkout -b <new-branch-name> <your-custom-remote-name>/master
+			- git checkout master
+			- git merge <new-branch-name>
+			- Fatal: refusing to merge unrelated histories
+			- git merge <new-branch-name> --allow-unrelated-histories
+			
+			
+************************************************************************************************
+************************************************************************************************
+	- Curso John Mircha: Curso Git & GitHub - jonmircha
+		- https://www.youtube.com/watch?v=suzMNqDQiyU
+			- configuración
+				- git --version 
+				- git config --global user.name "xxxxx"
+				- git config --global user.email xxx@gmail.com 
+				- git config --global user.ui true 
+				- git config --list 
+
+				- Asignando visual studio code como editor de configuración.
+					- git config --global core.editor "code --wait"
+					- git config --global -e 
+				- Para estandarizar los saltos de línea en windows
+					- git config --global core.autocrlf true 
+				- Para estandarizar los saltos de línea en mac
+					- git config --global core.autocrlf input 
+
+			- Cambiar rama master a main cuando ya he pusheado (1.28.30)
+				- Crear rama locar main y pasarle el historial de master.
+					- git branch -m master main 
+				- Hacer un psuh de la nueva rama local main en el repositorio remoto.
+					- git push -u origin main 
+				- Cambiar el HEAD actual a la rama main (cambia el enlace simbólico)
+					- git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+				- Cambiar rama default de master a main en Github 
+					- En github ir a Settings
+					- Ir a Branches 
+					- Editar Default branch y cambiar de master a main.
+				- Borrar master 
+					- git push origin --delete master

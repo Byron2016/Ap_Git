@@ -1,0 +1,29 @@
+#! /bin/bash
+# To run: bash bgithub.sh  
+# Parameters:
+#             1: nombre repositorio
+echo "<div>" >> README.md
+echo "	<div>" >> README.md
+echo "		<img src="https://raw.githubusercontent.com/Byron2016/00_forImages/main/images/Logo_01_00.png" align="left" alt="MyLogo" width="200">" >> README.md
+echo "	</div>" >> README.md
+echo "	&nbsp;" >> README.md
+echo "	<div>" >> README.md
+echo "		<h1>$1</h1>" >> README.md
+echo "	</div>" >> README.md
+echo "</div>" >> README.md
+echo "" >> README.md
+echo "&nbsp;" >> README.md
+echo "" >> README.md
+echo "## Project Description" >> README.md
+echo "" >> README.md
+echo "## Steps" >> README.md
+echo "" >> README.md
+
+git init
+git add .
+git commit -m "chore: first commit"
+git branch -M main
+var_rempath=$(git remote add origin https://github.com/Byron2016/$1.git)
+echo $var_rempath
+git config credential.helper store
+git push -u origin main
