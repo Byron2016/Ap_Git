@@ -165,15 +165,15 @@
 					- Copiarlo.
 			- Ir al Ubuntu 
 				- git remote set-url origin https://<token>@github.com/<usuario>/<repo>
-				- git remote set-url origin https://secret@github.com/Byron2016/borrarHoy
+				- git remote set-url origin https://SECRET_01@github.com/Byron2016/borrarHoy
 				
-				git remote set-url origin https://secret/4/Byron2016/borrarHoy
-				git remote set-url origin https://secret@github.com/Byron2016/translated-content
-				git remote set-url origin https://Byron2016:secret/Byron2016/translated-content
+				git remote set-url origin https://SECRET_02/4/Byron2016/borrarHoy
+				git remote set-url origin https://SECRET_03@github.com/Byron2016/translated-content
+				git remote set-url origin https://Byron2016:SECRET_04/Byron2016/translated-content
 				
 				- git remote set-url origin https://<user>:<token>@github.com/<usuario>/<repo>
 				
-				secret/4
+				SECRET_05/4
 		
 ************************************************************************************************
 ************************************************************************************************
