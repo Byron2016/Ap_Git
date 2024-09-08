@@ -7,6 +7,31 @@
 	- Sobre ramas excelente artículo.
 		- https://nvie.com/posts/a-successful-git-branching-model/
 		
+	- Crear Github actions
+		- How I Set up Production Node.js Project (2024)
+			- https://www.youtube.com/watch?v=GTDYsV5pyZU
+				24:18 - GitHub Actions Workflows
+				34:01 - Add and configure Nodemon
+				38:30 - Config module for Envs
+				43:41 - Add and configure Sequelize
+				55:41 - Conclusion
+
+	- Cómo encontrar en cual commit un archivo fue agregado en un repositorio git.
+		- How do you find out which commit a file was added in a Git repository?
+			- https://www.quora.com/How-do-you-find-out-which-commit-a-file-was-added-in-a-Git-repository#:~:text=you%20can%20use%20the%20git,was%20added%20to%20the%20repository.
+
+				- Method 1: Using git log
+					- git log --diff-filter=A -- [file_path] 
+						- The --diff-filter=A option filters the commits to show only those where the file was added.
+					
+				- Method 2: Using git rev-list
+					- git rev-list --max-parents=0 HEAD | while read rev; do git log -1 --diff-filter=A -- [file_path] $rev; done
+						- This command iterates through all commits and finds where the file was added.
+
+				- Method 3: Using git blame
+					- git blame [file_path]
+						- This will show you the commit information for each line in the file, including the first commit that added each line.
+		
 	- Agregar alias (Ya no ocupar, mejor ir a .bashrc)
 		- IMPORTANTE: YA NO OCUPAR, MEJOR IR A .bashrc
 		- How to add an alias permanently for the Git Bash
