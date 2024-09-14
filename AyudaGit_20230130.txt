@@ -325,6 +325,11 @@
 		- Desacer cambios y BORRAR el remoto ya pusheado.
 			- git reset 80b36d9 --hard
 			- git push -f origin main
+			- MIRAR: https://hackernoon.com/how-to-delete-commits-from-remote-in-git
+				- Step 1 - Delete commits locally
+					- git reset --hard HEAD~1
+				- Step 2 - Delete the commits from remote
+					- git push origin HEAD --force
 			
 	- Tutorial de Git – 7. ¿Cómo revierto un commit?
 		- REVERT
@@ -360,7 +365,7 @@
 		- borrar a la fuerza: con -D
 		- más verboso: -v
 		
-		- eliminar rama REMOTA
+		- eliminar / borrar rama REMOTA
 			- git push origin --delete <NOMBRE RAMA>
 		
 	- Tutorial de Git – 10. Commits bajo el workflow Feature Branch
@@ -634,6 +639,20 @@
 					- Pongo en la línea la r para reword 
 					- guardar:  :wq 
 					- Saca nueva pantalla para modificar el texto 
+					- Ayuda VIM (https://atareao.es/tutorial/vim/buscar-y-reemplazar-en-vim/)
+						- :rango s/patron/reemplazo/[cgil]
+							- Respecto al rango, puede ser alguno de los que indico a continuación, una combinación o ninguno de ellos. Quiero decir con esto que el rango es totalmente opcional, siempre puedes omitirlo
+								- numero se refiere a la búsqueda y reemplazo en una línea concreta
+								- inicio,fin de la línea inicio a la línea fin
+								- . para la línea actual
+								- $ se refiere a la última línea del archivo
+								- % se refiere a todo el archivo
+						- Por otro lado, respecto a las opciones cgil que aparecen en la sintaxis indicadas anteriormente,
+
+								- c te obliga a confirmara cada una de las sustituciones.
+								- g reemplaza todas las ocurrencias de la línea. Si no se añade esta opción solo cambiará la primera de las apariciones en la línea.
+								- i no distingue entre mayúsculas y minúsculas.
+								- l diferencia entre mayúsculas y minúsculas.
 					- i para entrar modo insert 
 					- modificar el texto del commit 
 					- guardar y salir: :wq 
