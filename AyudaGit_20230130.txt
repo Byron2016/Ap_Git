@@ -16,7 +16,15 @@
 				43:41 - Add and configure Sequelize
 				55:41 - Conclusion
 
-	- Cómo encontrar en cual commit un archivo fue agregado en un repositorio git.
+	- Listar commits a partir de un commit (listar entre commits)
+		- https://stackoverflow.com/questions/7693249/how-to-list-commits-since-certain-commit
+			- git rev-list <since_hash>^..HEAD
+				- Eso listara los # de los commists desde <since_hash> hasta donde esté la cabecera.
+				- Ojo se puede tambier usar git log y traerá otra información.
+				- Ojo si reemplaza el head con otro commit listará entre commits. (listar entre commits)
+				
+			
+	- Cómo encontrar en cual commit un archivo fue agregado en un repositorio git. 
 		- How do you find out which commit a file was added in a Git repository?
 			- https://www.quora.com/How-do-you-find-out-which-commit-a-file-was-added-in-a-Git-repository#:~:text=you%20can%20use%20the%20git,was%20added%20to%20the%20repository.
 
@@ -31,6 +39,9 @@
 				- Method 3: Using git blame
 					- git blame [file_path]
 						- This will show you the commit information for each line in the file, including the first commit that added each line.
+						
+		- Este me trae el ultimo/último commit historial history 
+			- git log -n 1 --pretty=format:%H -- [file_path] Ejem: docs/src/use/index.md
 		
 	- Agregar alias (Ya no ocupar, mejor ir a .bashrc)
 		- IMPORTANTE: YA NO OCUPAR, MEJOR IR A .bashrc
@@ -232,6 +243,28 @@
 			- echo $SHELL
 				- Desplegará:
 					- /usr/bin/bash o /usr/bin/zsh
+
+	- **Diccionario de palabras raras de Git**
+		- [makigas: 📔 Blob (Diccionario Git de palabras raras, parte 1))](https://www.youtube.com/shorts/XfHIlSB8vdY)
+			- El **BLOB** es simplemente un conjunto de bytes que definen un archivo.
+			- **BLOB** : Binary Large Object 
+			- Cuando haces un git add lo que le dices es que meta ese archivo en la base de datos de git y una vez metido es lo que se conoce como blob.
+				- blob_número de bites que ocupa el archivo\0Inmediatamente luego el contenido del archivo.
+				- Por ejemplo con este comando 
+					- <code>cat <(echo -en "blob 54\0") <(cat . gitignore)</code>
+					- Generará
+						- <code>blob 54/src/config.rs ....</code> 
+					- <code>cat <(echo -en "blob 54\0") <(cat . gitignore) | sha1s</code>
+
+		- [makigas: 📔 Hash (Diccionario Git de palabras raras, parte 2))](https://www.youtube.com/watch?v=xMTzu5vCu3U)
+			- Es el sha1s resultante.
+
+		- [makigas: 🌳 Tree (Diccionario Git de palabras raras, parte 3)](https://www.youtube.com/watch?v=ADGQvO28azw)
+			- <code>git ls-tree HEAD</code>
+			- Ver un subdirectorio:
+				- <code>git ls-tree el commit</code>
+			- Ver contenido de un blob
+				- <code>git show el commit</code>
 					
 	- Tutorial de Git – 3. Creando tu primer commit
 		- Crear repositorio git
@@ -364,8 +397,10 @@
 		- borrar: git branch -d feature-newhome
 		- borrar a la fuerza: con -D
 		- más verboso: -v
+		- Rama remota solo está en local:
+			- gb --remote --delete origin/02_es
 		
-		- eliminar / borrar rama REMOTA
+		- eliminar / borrar rama REMOTA (borrar_rama borrar_rama_remota)
 			- git push origin --delete <NOMBRE RAMA>
 		
 	- Tutorial de Git – 10. Commits bajo el workflow Feature Branch
@@ -546,8 +581,8 @@
 		- Clonar git clone https.......
 			- tengo repositorio integro y completo en local.
 			
-		- Clonar pero sin todos los commits. 
-			- git clone https... --depth=1 (aprendido en midulive Git desde cero)
+		- Clonar pero sin todos los commits.
+			- git clone https... --depth=1 (aprendido en midulive Git desde cero) (ultimo commit)
 			
 		- Mirar si hay commits nuevos.
 			- git pull origin master
@@ -743,6 +778,7 @@
 				- El valor sale de git log.
 		- git checkout master
 			- Me lleva al último commit de esa rama
+			- Salir de un checkout (salir checkout salir_checkout salir-checkout salirCheckout)
 		- git diff NOMBREARCHIVO
 			- Para ver las diferencias con el último commit.
 		- git branch
