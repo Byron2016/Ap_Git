@@ -7,6 +7,17 @@
 	- Sobre ramas excelente artículo.
 		- https://nvie.com/posts/a-successful-git-branching-model/
 		
+	- .gitignore luego de subir node_modules
+		- Si alguna vez subes node_modules por error y luego añades el .gitignore, notarás que la carpeta sigue apareciendo en GitHub. Para solucionarlo y "limpiar" el historial de rastreo sin borrar la carpeta de tu computadora, debes ejecutar esta secuencia de comandos en tu terminal:
+			- En cada directorio en donde tenga el node_modules hacer:
+				- git rm -r --cached node_modules
+					- git rm: eliminar archivos de git
+					- -r de manera recursiva Se usa porque node_modules no es un archivo
+					- --cached Esta es la parte más importante. Le dice a Git: "Borra estos archivos de tu índice (tu memoria), pero NO los borres de mi disco duro". Si olvidas poner esto, Git borrará físicamente la carpeta de tu computadora y tendrás que reinstalar todo con npm install.
+				- git add .
+				- git commit -m "fix: stop tracking node_modules"
+				- git push origin main <o la rama en la que esté>
+
 	- Crear Github actions
 		- How I Set up Production Node.js Project (2024)
 			- https://www.youtube.com/watch?v=GTDYsV5pyZU
