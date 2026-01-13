@@ -256,5 +256,8 @@ alias vgud='vagrant up --debug'
 
 # VAGRANT BYRON FIN
 
+#PARA obliga a la consola subyacente de Windows a entrar en modo UTF-8 puro.
+chcp.com 65001 > /dev/null 2>&1
+
 # PROPIOS BYRON FIN
 
