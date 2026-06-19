@@ -264,6 +264,8 @@ alias tp='trash-put'
 alias tl='trash-list'
 alias te='trash-empty'
 
+alias lazygit='winpty lazygit'
+
 # PROPIOS BYRON FIN
 
 
