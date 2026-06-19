@@ -260,13 +260,13 @@ alias vgud='vagrant up --debug'
 chcp.com 65001 > /dev/null 2>&1
 
 # Usar trash-cli
-alias tp='trash-put'
-alias tl='trash-list'
-alias te='trash-empty'
+alias tl="trash list" # En windows no funciona
+alias tp="trash put"
+alias te="trash empty" # En windows no funciona
+# Agregar el path de pnpm para que funcione trash-cli
+export PATH="$HOME/AppData/Local/pnpm/bin:$PATH"
 
+# Usar lazyGit
 alias lazygit='winpty lazygit'
 
 # PROPIOS BYRON FIN
-
-
-
