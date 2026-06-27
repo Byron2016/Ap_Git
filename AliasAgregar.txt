@@ -269,4 +269,7 @@ export PATH="$HOME/AppData/Local/pnpm/bin:$PATH"
 # Usar lazyGit
 alias lazygit='winpty lazygit'
 
+# Usar eza reemplazo de ls
+alias ll='eza --long --header --icons --all'
+
 # PROPIOS BYRON FIN
