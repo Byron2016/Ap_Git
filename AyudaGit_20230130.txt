@@ -818,7 +818,17 @@
 			- git push origin tu-rama-actual --force-with-lease
 			- git push origin fix_eslint_prettier --force-with-lease
 
-
+- El "Fork manual" (Duplicar el repo en tu misma cuenta)
+	- Crea un nuevo repositorio vacío en GitHub (por ejemplo, mi-proyecto-v2).
+	- Clona el repositorio original como "bare":
+		- git clone --bare https://github.com/tu-usuario/mi-proyecto-original.git
+		- cd mi-proyecto-original.git
+	- Haz un push espejo (mirror) al nuevo repositorio:
+		- git push --mirror https://github.com/tu-usuario/mi-proyecto-v2.git
+	- Borra la carpeta temporal .git local y clona tu nuevo repositorio para trabajar normalmente:
+		- cd ..
+		- rm -rf mi-proyecto-original.git
+		- git clone https://github.com/tu-usuario/mi-proyecto-v2.git
 
 ************************************************************************************************
 ************************************************************************************************
