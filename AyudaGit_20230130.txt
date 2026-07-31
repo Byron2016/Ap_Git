@@ -773,6 +773,53 @@
 		- Limpiar dependencias y archivos de construcción (Opcional pero recomendado)
 			- pnpm install
 
+- ¿Cómo solucionarlo con rebase?
+	- Problema:
+		- El problema ocurre por la secuencia en la que se crearon las ramas:
+			- En algún momento anterior, trabajaste en la PR #13 e hiciste cambios. Esa PR #13 ya se integró (mergeó) a la rama principal (main).
+			- Creaste la rama actual antes de que la PR #13 fuera aprobada e integrada en main.
+			- El conflicto: Como tu rama actual nació del main "antiguo" (el que todavía no tenía la PR #13), tu rama incluye la versión vieja de package.json. Al intentar hacer un merge o Pull Request ahora, Git interpreta que estás queriendo volver al estado anterior y deshacer los cambios que tú mismo hiciste en la #13.
+	- Actualiza tu rama main local:
+		- git checkout main
+		- git pull origin main
+	- Cámbiate a tu rama de trabajo y haz el rebase:
+		- git checkout tu-rama-actual
+		- git rebase main
+		- Que se hará acá:
+			- voy a la rama que quiero mover
+			- va a subir
+		- Se queda en un status
+			- (fix_eslint_prettier|REBASE 1/1)
+	- Resolver el conflicto (si Git se detiene):
+		- Puedo hacer un git status para ver lo que ha cambiado y en "Unmerged paths" son los que tienen problemas
+		- corregir problema
+
+			- abro package.json y busco
+				Accept Current Chante / Accept Incomming Change / Accept Both Changes / Compare Changes
+				<<<<<<< HEAD
+					Representa: El estado actual de la rama donde estás parado (HEAD). En este caso la main.
+				=======
+					Representa: El commit que el rebase está intentando aplicar en este paso (90d797d - "chore(lint): setup eslint y prettier...").
+				>>>>>>> 90d797d (chore(lint): setup eslint y prettier para astro)
+
+				- Accept Current Chante: Quitará lo que estaba en main
+				- Accept Incomming Change: Acepta lo de abajo borra lo de arriba
+				- Accept Both Changes: acepta ambos, lo que tenía main y lo de la otra rama.
+	- Continuar con el rebase
+		- Una vez solucionado todos los conflictos ejecutar
+			- git add los archivos que tenían conflicto
+			- git rebase --continue
+	- Hacer commits
+		- Hacer los commists que se quiera
+		- Se los puede unificar con
+			- git rebase -i HEAD~número de commits a cambiar, tomar en cuenta es destructivo, no debería ponerse nada que esté pusheado
+	- Sube los cambios a la PR:
+		- Como cambiaste el historial con el rebase, tendrás que hacer un push forzado seguro:
+			- git push origin tu-rama-actual --force-with-lease
+			- git push origin fix_eslint_prettier --force-with-lease
+
+
+
 ************************************************************************************************
 ************************************************************************************************
 	GIT
